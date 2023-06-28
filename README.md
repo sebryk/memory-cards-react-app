@@ -1,2 +1,0 @@
-# Memory Cards React App
-
