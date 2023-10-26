@@ -1,0 +1,42 @@
+.text-area {
+  width: 400px;
+  height: 295px;
+  resize: none;
+  background-color: var(--dark-blue);
+  color: var(--green);
+  border-radius: 20px;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-style: none;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-top: 20px;
+  padding-inline: 20px;
+  font-family: inherit;
+}
+
+.text-area:focus::placeholder {
+  color: transparent;
+}
+
+.editor__input {
+  padding-top: 64px;
+  padding-inline: 45px;
+  border: 2px solid var(--purple);
+}
+
+.editor__output {
+  padding-block: 35px 64px;
+  padding-inline: 45px;
+  border: 2px solid var(--purple);
+}
+
+@media (max-width: 450px) {
+  .text-area {
+    width: 350px;
+  }
+}
