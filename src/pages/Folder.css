@@ -1,0 +1,122 @@
+.folder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100svh;
+}
+
+.folder__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.folder__link {
+  position: absolute;
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+.folder__link--back {
+  top: 20px;
+  left: 0;
+  transform: translate(50%);
+  color: var(--yellow);
+  z-index: 2;
+}
+
+.folder__link--edit {
+  bottom: 15px;
+  right: 35px;
+  transform: translateX(50%);
+  color: var(--blue);
+  z-index: 2;
+}
+
+.folder__link--new {
+  top: 20px;
+  right: 50%;
+  transform: translate(50%);
+  color: var(--purple);
+  z-index: 2;
+}
+
+.folder__btn {
+  position: absolute;
+  bottom: 10px;
+  background-color: transparent;
+  border: none;
+  margin-top: 20px;
+  color: var(--purple);
+  cursor: pointer;
+  transition: 0.2s;
+  z-index: 2;
+}
+
+.folder__btn--delete {
+  position: absolute;
+  bottom: 20px;
+  left: -5px;
+  background-color: transparent;
+  border: none;
+  transform: translateX(50%);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.folder__btn--delete path {
+  stroke: var(--blue);
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-blue);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.swiper-slide {
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.5;
+  background: var(--dark-blue);
+  border-right: var(--purple) 1px solid;
+  color: var(--green);
+}
+
+.mySwiper .swiper-button-prev {
+  left: var(--swiper-navigation-sides-offset, 15px);
+  color: var(--purple);
+}
+
+.mySwiper .swiper-button-prev::after {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.mySwiper .swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 15px);
+  color: var(--purple);
+}
+
+.mySwiper .swiper-button-next::after {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.mySwiper .swiper-button-disabled {
+  color: var(--purple);
+}
+
+@media (max-width: 450px) {
+  .all-folders__grid {
+    width: 350px;
+  }
+}

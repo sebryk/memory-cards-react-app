@@ -4,5 +4,8 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/memory-cards-react-app/',
+  base: '/memory-cards-react-app/#',
+  server: {
+    host: true,
+  },
 });
