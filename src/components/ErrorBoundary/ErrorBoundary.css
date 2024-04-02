@@ -1,0 +1,17 @@
+.error {
+  position: absolute;
+  width: 340px;
+  /* top: -105px; */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 60px;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid var(--red);
+  border-radius: 15px;
+  background-color: var(--dark-blue);
+}

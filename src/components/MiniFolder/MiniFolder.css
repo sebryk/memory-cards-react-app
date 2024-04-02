@@ -1,0 +1,71 @@
+.mini-folder {
+  width: 185px;
+  height: 170px;
+  position: relative;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px var(--blue) solid;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--green);
+  font-size: 24px;
+  font-weight: 300;
+  word-wrap: break-word;
+  background-color: var(--dark-purple);
+}
+
+.mini-folder:hover .mini-folder__btn {
+  opacity: 1;
+}
+
+.mini-folder__btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 4px;
+  background-color: var(--dark-purple);
+  border: 1px solid var(--purple);
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 0;
+}
+
+.mini-folder__btn-icon {
+  color: var(--blue);
+}
+
+.mini-folder__btn-icon path {
+  stroke: var(--blue);
+}
+
+.mini-folder__btn--delete {
+  right: 10px;
+  bottom: 10px;
+  padding: 4px;
+}
+
+.mini-folder__btn--edit {
+  left: 10px;
+  bottom: 10px;
+  padding: 2px;
+}
+
+@media (max-width: 900px) {
+  .mini-folder__btn {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 450px) {
+  .mini-folder {
+    width: 160px;
+    height: 150px;
+    font-size: 20px;
+  }
+}
