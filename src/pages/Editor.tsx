@@ -1,26 +1,42 @@
-import { useState, useEffect } from 'react'
+import { FC, useState, useEffect, useContext } from 'react'
 import './Editor.css'
 import TextArea from '../components/TextArea/TextArea'
 import { useNavigate, useParams } from 'react-router-dom'
-import { RxCheck, RxCross2, RxWidth} from 'react-icons/rx'
+import { RxCheck, RxCross2 } from 'react-icons/rx'
 import Button from '../components/Button/Button'
 import { RiTranslate } from 'react-icons/ri'
 import { BsArrowRepeat } from 'react-icons/bs'
 import Select from '../components/Select/Select'
-import { debounce } from 'lodash';
+import { AllFoldersContext } from '../context/allFoldersContext';
+import { LocalStorage } from '../utilities/LocalStorage/LocalStorage'
+import { IAllFoldersContext} from '../types/types';
+import { getTranslate } from '../api/api';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 
-function Editor({ allFolders, setAllFolders }) {
+const Editor: FC = () =>  {
+
+  const contextValue = useContext<IAllFoldersContext | null>(AllFoldersContext);
+
+  if (!contextValue) {
+    throw new Error('AllFoldersContext is not available.');
+  }
+
+  const { allFolders, setAllFolders } = contextValue;
+
   // getting params to display data from correct card 
-  const {id: idPage, index: cardIndex} = useParams()
+  let { id: idPage, index: cardIndex } = useParams<{ id: string; index: string }>()
+ 
   const navigate = useNavigate()
   const currentFolder = allFolders.find(folder => folder.id === Number(idPage))
+
   const [translation, setTranslation] = useState('')
+  const [error, setError] = useState('')
   // state with selected languages, if card exist and was opened to edit 
   // adding languages that was selected while saving this card
-  const [selectedOption, setSelectedOption] = useState({
-    input: cardIndex ? currentFolder.cards[cardIndex].languages.input : 'en',
-    output: cardIndex ? currentFolder.cards[cardIndex].languages.output : 'es'
+  const [selectedOption, setSelectedOption] = useState<{ input: string; output: string }>({
+    input: currentFolder && cardIndex ? currentFolder.cards[Number(cardIndex)].languages.input : 'en',
+    output: currentFolder && cardIndex ? currentFolder.cards[Number(cardIndex)].languages.output : 'es'
   });
   // options of select component
   const [options, setOptions] = useState ({
@@ -43,19 +59,25 @@ function Editor({ allFolders, setAllFolders }) {
   })
   // if data of input and output exists adding it to state, otherwise empty strings
   const [memoryCard, setMemoryCard] = useState({
-    inputValue: cardIndex ? currentFolder.cards[cardIndex].inputValue : '',
-    outputValue: cardIndex ? currentFolder.cards[cardIndex].outputValue : '',
+    id: Date.now(),
+    inputValue: cardIndex ? currentFolder?.cards[Number(cardIndex)].inputValue : '',
+    outputValue: cardIndex ? currentFolder?.cards[Number(cardIndex)].outputValue : '',
+    isLearned: cardIndex ? currentFolder?.cards[Number(cardIndex)].isLearned : false,
+    languages: { input: '', output: '' }
   });
 
-  function handleChange(e) {
+  console.log(error);
+
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setMemoryCard(prev => ({ 
       ...prev,
       [e.target.name]: e.target.value
     }))
   }
 
+
   // setting selected option corresponding to the input or output
-  const handleOptionSelect = (option, name) => {
+  const handleOptionSelect = (option: string, name: string ) => {
     if (name === 'input') {
       setSelectedOption({ ...selectedOption, input: option });
     } else if (name === 'output') {
@@ -64,23 +86,14 @@ function Editor({ allFolders, setAllFolders }) {
   };
   // every time when selected option changes update it in memory card state
   useEffect(() => {
-    setMemoryCard({ ...memoryCard, languages: selectedOption });
+    setMemoryCard({ ...memoryCard, languages:  selectedOption });
   },[selectedOption]);
 
   // fetch translated data 
   useEffect(() => {
-    const getTranslate = debounce(async () => {
-      try {
-        const url = `https://api.mymemory.translated.net/get?q=${memoryCard.inputValue}!&langpair=${selectedOption.input}|${selectedOption.output}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setTranslation(data?.matches[0]?.translation)
-      } catch (error) {
-        console.error(error);
-      }
-    }, 300)
-      getTranslate();
+    if(memoryCard.inputValue && selectedOption.input && selectedOption.output) { 
+      getTranslate(memoryCard.inputValue, selectedOption.input, selectedOption.output, setTranslation, setError);
+    }
     // getting translation after changing these values
   }, [memoryCard.inputValue, selectedOption.input, selectedOption.output]);
 
@@ -95,6 +108,7 @@ function Editor({ allFolders, setAllFolders }) {
   // changing card values when switching sides
   const swapMemoryCardValues = () => {
     setMemoryCard({ 
+      ...memoryCard,
       inputValue: memoryCard.outputValue,
       outputValue: memoryCard.inputValue,
     })
@@ -107,16 +121,17 @@ function Editor({ allFolders, setAllFolders }) {
         if (folder.id === Number(idPage)) {
           if(cardIndex) {
             updatedCards = [...folder.cards];
-            updatedCards[cardIndex] = memoryCard
+            updatedCards[Number(cardIndex)] = memoryCard
           } else {
             updatedCards = [...folder.cards, memoryCard];
+            cardIndex = String(updatedCards.length - 1)
           }
           return { ...folder, cards: updatedCards };
         }
         return folder;
       });
   
-      localStorage.setItem('allFolders', JSON.stringify(updatedFolders));
+      LocalStorage.set('allFolders', updatedFolders);
   
       return updatedFolders;
     });
@@ -129,9 +144,10 @@ function Editor({ allFolders, setAllFolders }) {
   return (
     <div className='editor'>
       <div className='editor__container'>
+      {error && <ErrorBoundary error={error} />}
         <TextArea
           className='editor__input text-area'
-          maxLength={140}
+          maxLength={(140)}
           onChange={handleChange}
           value={memoryCard.inputValue}
           name='inputValue'

@@ -55,6 +55,16 @@
   z-index: 2;
 }
 
+.folder__btn--learned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: unset;
+  top: 0;
+  right: 20px;
+  color: var(--yellow);
+}
+
 .folder__btn--delete {
   position: absolute;
   bottom: 20px;
