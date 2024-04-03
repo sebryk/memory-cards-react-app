@@ -13,4 +13,4 @@ With **Neon Memory Cards**, users can create an unlimited number of custom folde
 
 ## Link
 
-https://sebryk.github.io/memory-cards-react-app/
+https://sebryk.github.io/memory-cards-react-app/#/
