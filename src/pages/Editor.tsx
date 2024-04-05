@@ -1,7 +1,7 @@
-import { FC, useState, useEffect, useContext } from 'react'
+import { FC, useState, useEffect, useContext, ChangeEvent } from 'react'
 import './Editor.css'
 import TextArea from '../components/TextArea/TextArea'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { RxCheck, RxCross2 } from 'react-icons/rx'
 import Button from '../components/Button/Button'
 import { RiTranslate } from 'react-icons/ri'
@@ -12,6 +12,7 @@ import { LocalStorage } from '../utilities/LocalStorage/LocalStorage'
 import { IAllFoldersContext} from '../types/types';
 import { getTranslate } from '../api/api';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+
 
 
 const Editor: FC = () =>  {
@@ -26,6 +27,7 @@ const Editor: FC = () =>  {
 
   // getting params to display data from correct card 
   let { id: idPage, index: cardIndex } = useParams<{ id: string; index: string }>()
+
  
   const navigate = useNavigate()
   const currentFolder = allFolders.find(folder => folder.id === Number(idPage))
@@ -59,16 +61,15 @@ const Editor: FC = () =>  {
   })
   // if data of input and output exists adding it to state, otherwise empty strings
   const [memoryCard, setMemoryCard] = useState({
-    id: Date.now(),
+    id: cardIndex ? currentFolder?.cards[Number(cardIndex)].id : Date.now(),
     inputValue: cardIndex ? currentFolder?.cards[Number(cardIndex)].inputValue : '',
     outputValue: cardIndex ? currentFolder?.cards[Number(cardIndex)].outputValue : '',
     isLearned: cardIndex ? currentFolder?.cards[Number(cardIndex)].isLearned : false,
     languages: { input: '', output: '' }
   });
 
-  console.log(error);
 
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setMemoryCard(prev => ({ 
       ...prev,
       [e.target.name]: e.target.value
@@ -140,6 +141,12 @@ const Editor: FC = () =>  {
   
   }
   
+  const isFolderIdInvalid = currentFolder?.id !== Number(idPage) 
+  const isCardIdInvalid = cardIndex && currentFolder?.cards[Number(cardIndex)]?.id !== memoryCard?.id
+  
+  if(isFolderIdInvalid || isCardIdInvalid) {
+    return <Navigate to='/not-found' replace />
+  }
 
   return (
     <div className='editor'>

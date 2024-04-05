@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link, useLocation, useParams, useNavigate, Navigate } from 'react-router-dom';
 import Card from '../components/Card/Card'
 import Button from '../components/Button/Button';
 import { BiArrowBack } from 'react-icons/bi'
@@ -27,23 +27,25 @@ function Cards() {
     throw new Error('AllFoldersContext is not available.');
   }
 
-
   const { allFolders, setAllFolders } = contextValue;
   // getting id parameter to find out which folder was clicked
   const { id: folderId } = useParams()
-  // getting state with card index from card that was edited 
-  const { state } = useLocation()
-  // logic data for flipping between card sides
-  const [flipedCard, setFlipedCard] = useState(false);  
   // finding selected folder
   const selectedFolder = allFolders?.find(folder => folder.id === Number(folderId));
+  
+
+  const navigate = useNavigate()
+  // getting state with card index from card that was edited 
+  const { state } = useLocation()
+  // count of cards
   const cardsCount = selectedFolder?.cards.length;
   // making immediately active card that was just now edited or added
   const [activeSlide, setActiveSlide] = useState(Number(state?.cardIndex) || 0);
   // state for check if card was learned
   const cardIsLearned = selectedFolder?.cards[activeSlide]?.isLearned || null;
-
-
+  // logic data for flipping between card sides
+  const [flipedCard, setFlipedCard] = useState(false);  
+  
   const toggleSideCard = () => {
     setFlipedCard(!flipedCard)
   }
@@ -73,6 +75,7 @@ function Cards() {
   }
   
 
+
   const deleteCard = () => {
     setAllFolders(prevFolder => prevFolder.map(folder => {
       if (folder.id === Number(folderId)) {
@@ -87,6 +90,17 @@ function Cards() {
   useEffect(() => {
     setFlipedCard(false)
   }, [activeSlide])
+
+  useEffect(() => {
+    if(selectedFolder?.id !== Number(folderId)) {
+      navigate('..')
+    }
+  }, []);
+  
+
+  if(!selectedFolder) {
+    return <Navigate to='/not-found' replace />
+  }
 
   return (
     <div className="folder">

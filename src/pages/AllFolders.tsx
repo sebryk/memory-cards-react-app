@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useReducer, FC} from 'react';
+import { useEffect, useContext, useReducer, FC, MouseEvent, ChangeEvent } from 'react';
 import MiniFolder from '../components/MiniFolder/MiniFolder';
 import Button from '../components/Button/Button';
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -41,7 +41,7 @@ const AllFolders: FC = () => {
     dispatch({type: 'closeModal'})
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({type: 'handleChange', payload: e.target.value})
   }
 
@@ -77,12 +77,12 @@ const AllFolders: FC = () => {
   }
 
 
-  const deleteFolder = (e?: React.MouseEvent<HTMLButtonElement>, id?: number) => {
+  const deleteFolder = (e?: MouseEvent<HTMLButtonElement>, id?: number) => {
     e?.preventDefault()
     setAllFolders(prevFolders => prevFolders.filter(folder => folder.id !== id))
   }
   //invoking modal to edit folder name and adding that name in modal input 
-  const editFolder = (e: React.MouseEvent<HTMLButtonElement>, id: number ) => {
+  const editFolder = (e: MouseEvent<HTMLButtonElement>, id: number ) => {
     const editedFolderName = allFolders.find(folder => folder.id === id)?.name;
     e?.preventDefault()
     dispatch({type: 'setIdEditedFolder', payload: id})

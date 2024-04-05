@@ -6,6 +6,7 @@ import Folder from './pages/Folder';
 import AllFolders from './pages/AllFolders';
 import { AllFoldersContext } from './context/allFoldersContext';
 import { IFolders } from './types/types';
+import NotFound from './pages/NotFound';
 
 
 const App: FC = () => {
@@ -25,7 +26,8 @@ const App: FC = () => {
         <Route path=':id/editor' element={<Editor />}>
           <Route path=':index' element={<Editor />} />
         </Route>
-        <Route path='*' element={<h1>Not found</h1>} />
+        <Route path='*' element={<NotFound/>} />
+        <Route path='not-found' element={<NotFound/>}/>
       </Routes>
    </AllFoldersContext.Provider>
   )
