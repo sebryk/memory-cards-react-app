@@ -1,5 +1,3 @@
-## Link
-https://sebryk.github.io/memory-cards-react-app/#/
 
 # Neon Memory Cards
 
@@ -14,6 +12,9 @@ https://sebryk.github.io/memory-cards-react-app/#/
 
 ## Visuals
 ![Group 32](https://github.com/sebryk/memory-cards-react-app/assets/106953297/75a91667-b5ac-497c-a47e-e2fb10b57acf)
+
+## Link
+https://sebryk.github.io/memory-cards-react-app/#/
 
 ## Getting started
 ### Install
