@@ -8,7 +8,7 @@ export interface IFolders {
 }
 
 export interface ICards {
-  id: number;
+  id?: number;
   inputValue?: string;
   outputValue?: string;
   isLearned?: boolean;

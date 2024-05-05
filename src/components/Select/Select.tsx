@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, FC, RefObject } from 'react'
+import { useState, useRef, useEffect, FC, RefObject, Dispatch, SetStateAction } from 'react'
 import { VscTriangleDown } from 'react-icons/vsc'
 import './Select.css'
 
@@ -7,7 +7,7 @@ interface ISelectProps {
     value: string;
     label: string;
   }[]
-  setOptions: React.Dispatch<React.SetStateAction<IOptions>>;
+  setOptions: Dispatch<SetStateAction<IOptions>>;
   selectedOption: string
   handleOptionSelect: (value: string, name: string) => void
   className?: string
@@ -79,7 +79,7 @@ const Select: FC<ISelectProps> = ({ options, setOptions, selectedOption, handleO
       {isOpen && (
         <ul className="select__options">
           {options
-          .map((option, i, arr) => (
+          .map(option => (
             <li
               className={`select__options-item ${
                 selectedOption === option.value ? 'select__options-item--selected' : '' ||

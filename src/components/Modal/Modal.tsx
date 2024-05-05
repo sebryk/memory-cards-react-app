@@ -1,8 +1,8 @@
+import { ChangeEvent, FC, ReactNode, KeyboardEvent } from 'react';
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { RxCross2 } from 'react-icons/rx'
 import './Modal.css'
-import React, { ChangeEvent, FC, ReactNode } from 'react';
 
 interface IModalProps {
   children: ReactNode
@@ -14,13 +14,14 @@ interface IModalProps {
 
 const Modal: FC<IModalProps> = ({ children, modalInput, handleChange, handleFolder, closeModal }) => {
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if(e.key === 'Escape') {
       closeModal()
     }else if(e.key === 'Enter') {
       handleFolder()
     }
   }
+
 
   return ( 
   <div className="overlay" 

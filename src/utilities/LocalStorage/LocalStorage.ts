@@ -1,4 +1,3 @@
-
 export const LocalStorage = {
   get<T>(key: string): T | null {
     const item = localStorage.getItem(key);

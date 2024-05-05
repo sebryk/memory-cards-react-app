@@ -1,20 +1,22 @@
+import { ReactNode, FC, MouseEvent, memo } from 'react';
 import { Link } from 'react-router-dom';
 import './MiniFolder.css'
 import Button from '../Button/Button';
 import { GrTrash } from 'react-icons/gr'
 import { PiPencil } from 'react-icons/pi'
-import { ReactNode, FC } from 'react';
 
 interface IMiniFolderProps {
   children: ReactNode
   link: string
-  handleClickDelete: (e: React.MouseEvent<HTMLButtonElement>, id?: number ) => void
-  handleClickEdit: ( e: React.MouseEvent<HTMLButtonElement>, id?: number ) => void
+  handleClickDelete: (e: MouseEvent<HTMLButtonElement>, id?: number ) => void
+  handleClickEdit: ( e: MouseEvent<HTMLButtonElement>, id?: number ) => void
   id: number
 }
 
 const MiniFolder: FC<IMiniFolderProps> = ({ children, link, handleClickDelete, handleClickEdit, id}) => {
   
+
+
   return (
     <Link to={link} 
         id={String(id)}
