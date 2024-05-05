@@ -22,6 +22,7 @@ const Modal: FC<IModalProps> = ({ children, modalInput, handleChange, handleFold
     }
   }
 
+
   return ( 
   <div className="overlay" 
     onClick={closeModal} 

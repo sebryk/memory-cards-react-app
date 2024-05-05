@@ -1,4 +1,4 @@
-import { ReactNode, FC, MouseEvent } from 'react';
+import { ReactNode, FC, MouseEvent, memo } from 'react';
 import { Link } from 'react-router-dom';
 import './MiniFolder.css'
 import Button from '../Button/Button';
@@ -15,6 +15,8 @@ interface IMiniFolderProps {
 
 const MiniFolder: FC<IMiniFolderProps> = ({ children, link, handleClickDelete, handleClickEdit, id}) => {
   
+
+
   return (
     <Link to={link} 
         id={String(id)}

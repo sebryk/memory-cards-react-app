@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useParams, useNavigate, Navigate } from 'react-router-dom';
-import Card from '../components/Card/Card'
-import Button from '../components/Button/Button';
+import Card from '../../components/Card/Card'
+import Button from '../../components/Button/Button';
 import { BiArrowBack } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BsArrowRepeat } from 'react-icons/bs'
@@ -9,13 +9,13 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { PiPencil } from 'react-icons/pi';
 import { GrTrash } from 'react-icons/gr';
 import { Navigation, Keyboard } from 'swiper/modules';
-import { AllFoldersContext } from '../context/allFoldersContext';
+import { AllFoldersContext } from '../../context/allFoldersContext';
 import './Folder.css'
 import 'swiper/css/navigation';
 import 'swiper/css';
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { LocalStorage } from '../utilities/LocalStorage/LocalStorage';
-import { IAllFoldersContext } from '../types/types';
+import { LocalStorage } from '../../utilities/LocalStorage/LocalStorage';
+import { IAllFoldersContext } from '../../types/types';
 
 
 

@@ -1,12 +1,12 @@
 import {FC, useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css'
-import Editor from './pages/Editor'
-import Folder from './pages/Folder';
-import AllFolders from './pages/AllFolders';
+import Editor from './pages/Editor/Editor'
+import Folder from './pages/Folder/Folder';
+import AllFolders from './pages/AllFolders/AllFolders';
 import { AllFoldersContext } from './context/allFoldersContext';
 import { IFolders } from './types/types';
-import NotFound from './pages/NotFound';
+import NotFound from './pages/NotFound/NotFound';
 
 
 const App: FC = () => {

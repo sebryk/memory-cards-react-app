@@ -1,17 +1,17 @@
 import { FC, useState, useEffect, useContext, ChangeEvent } from 'react'
 import './Editor.css'
-import TextArea from '../components/TextArea/TextArea'
+import TextArea from '../../components/TextArea/TextArea'
 import { useNavigate, useParams, Navigate } from 'react-router-dom'
 import { RxCheck, RxCross2 } from 'react-icons/rx'
-import Button from '../components/Button/Button'
+import Button from '../../components/Button/Button'
 import { RiTranslate } from 'react-icons/ri'
 import { BsArrowRepeat } from 'react-icons/bs'
-import Select from '../components/Select/Select'
-import { AllFoldersContext } from '../context/allFoldersContext';
-import { LocalStorage } from '../utilities/LocalStorage/LocalStorage'
-import { IAllFoldersContext} from '../types/types';
-import { getTranslate } from '../api/api';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Select from '../../components/Select/Select'
+import { AllFoldersContext } from '../../context/allFoldersContext';
+import { LocalStorage } from '../../utilities/LocalStorage/LocalStorage'
+import { IAllFoldersContext} from '../../types/types';
+import { getTranslate } from '../../api/api';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 
 
@@ -59,6 +59,7 @@ const Editor: FC = () =>  {
       { value: 'es', label: 'Es' },
     ]
   })
+  
   // if data of input and output exists adding it to state, otherwise empty strings
   const [memoryCard, setMemoryCard] = useState({
     id: cardIndex ? currentFolder?.cards[Number(cardIndex)].id : Date.now(),
@@ -137,7 +138,7 @@ const Editor: FC = () =>  {
       return updatedFolders;
     });
   
-    return navigate(`../${idPage}`, { state: { cardIndex } });
+    navigate(`../${idPage}`, { state: { cardIndex } });
   
   }
   

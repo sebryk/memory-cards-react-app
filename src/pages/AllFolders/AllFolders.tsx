@@ -1,14 +1,14 @@
 import { useEffect, useContext, useReducer, FC, MouseEvent, ChangeEvent } from 'react';
-import MiniFolder from '../components/MiniFolder/MiniFolder';
-import Button from '../components/Button/Button';
+import MiniFolder from '../../components/MiniFolder/MiniFolder';
+import Button from '../../components/Button/Button';
 import { AiOutlinePlus } from 'react-icons/ai'
 import './AllFolders.css'
-import Modal from '../components/Modal/Modal';
-import { AllFoldersContext } from '../context/allFoldersContext';
-import { IAllFoldersContext } from '../types/types'; 
-import { LocalStorage } from '../utilities/LocalStorage/LocalStorage';
-import modalReducer from '../reducers/modalReducer';
-import limitingEcxessiveChars from '../utilities/LocalStorage/limitingEcxessiveChars';
+import Modal from '../../components/Modal/Modal';
+import { AllFoldersContext } from '../../context/allFoldersContext';
+import { IAllFoldersContext } from '../../types/types'; 
+import { LocalStorage } from '../../utilities/LocalStorage/LocalStorage';
+import modalReducer from '../../reducers/modalReducer';
+import limitingEcxessiveChars from '../../utilities/LocalStorage/limitingEcxessiveChars';
 
 
 const AllFolders: FC = () => {
@@ -60,7 +60,6 @@ const AllFolders: FC = () => {
   }
   //editing name of existing folder
   const editFolderName = () => {
-
     setAllFolders(prevFolders => prevFolders.map((folder) => {
       // if the folder id matches the id that was set in the idEditedFolder adding new name to editing folder
         if (folder.id === modalState.idEditedFolder) {
@@ -101,6 +100,7 @@ const AllFolders: FC = () => {
               {limitingEcxessiveChars(item.name, 25, '...')}
            </MiniFolder>
   })
+
   return (
     <div className="all-folders">
       <div className="all-folders__container">
