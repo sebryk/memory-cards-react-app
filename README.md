@@ -22,7 +22,7 @@
 
 ## Link
 
-https://sebryk.github.io/memory-cards-react-app/#/
+https://sebryk.github.io/memory-cards-react-app/
 
 ## Getting started
 
