@@ -12,6 +12,7 @@ import { LocalStorage } from '../../utilities/LocalStorage/LocalStorage'
 import { IAllFoldersContext} from '../../types/types';
 import { getTranslate } from '../../api/api';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import { ButtonBase, Tooltip } from '@mui/material'
 
 
 
@@ -202,14 +203,16 @@ const Editor: FC = () =>  {
             style={{width: '40px', height: '40px'}}
           />
         </Button>
-        <Button
-          onClick={translateText}
-          className='editor__btn'
-        >
-        <RiTranslate
-          style={{width: '40px', height: '40px'}}
-        />
-        </Button>
+        <Tooltip title='Translate' arrow>
+          <Button
+            onClick={translateText}
+            className='editor__btn'
+          >
+          <RiTranslate
+            style={{width: '40px', height: '40px'}}
+          />
+          </Button>
+        </Tooltip>
         <Select
         options={options.input}
         setOptions={setOptions}
@@ -218,6 +221,7 @@ const Editor: FC = () =>  {
         name='input'
         className='select select--input'
       />
+      <Tooltip title='Select output language' arrow>
         <Select
         options={options.output}
         setOptions={setOptions}
@@ -225,7 +229,8 @@ const Editor: FC = () =>  {
         handleOptionSelect={handleOptionSelect}
         name='output'
         className='select select--output'
-      />
+        />
+      </Tooltip>
       </div>
     </div>
   )
